@@ -12,6 +12,7 @@ public class Queen implements ChessPiece {
 	/**
 	 * 
 	 */
+	private boolean white;
 	public Queen() {
 		// TODO Auto-generated constructor stub
 	}

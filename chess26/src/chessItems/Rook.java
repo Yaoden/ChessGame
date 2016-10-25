@@ -13,6 +13,7 @@ public class Rook implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
+	private boolean castling;
 	public Rook() {
 		// TODO Auto-generated constructor stub
 	}

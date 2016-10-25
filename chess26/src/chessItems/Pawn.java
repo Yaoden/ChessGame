@@ -12,6 +12,7 @@ public class Pawn implements ChessPiece {
 	/**
 	 * 
 	 */
+	private boolean white;
 	public Pawn() {
 		// TODO Auto-generated constructor stub
 	}

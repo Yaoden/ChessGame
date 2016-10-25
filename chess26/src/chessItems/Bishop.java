@@ -12,6 +12,7 @@ public class Bishop implements ChessPiece {
 	/**
 	 * 
 	 */
+	private boolean white;
 	public Bishop() {
 		// TODO Auto-generated constructor stub
 	}
