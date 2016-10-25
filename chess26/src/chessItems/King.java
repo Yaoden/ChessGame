@@ -12,6 +12,9 @@ public class King implements ChessPiece {
 	/**
 	 * 
 	 */
+	private boolean white;
+	private boolean castling;
+	
 	public King() {
 		// TODO Auto-generated constructor stub
 	}
