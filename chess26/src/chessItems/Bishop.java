@@ -15,24 +15,25 @@ public class Bishop implements ChessPiece {
 	private boolean white;
 	public Bishop() {
 		// TODO Auto-generated constructor stub
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#isLegal(int, int)
 	 */
 	@Override
-	public void isLegal(int start, int end) {
+	public boolean isLegal(int start, int end) {
 		// TODO Auto-generated method stub
-
+		return true;
 	}
 
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#isWhite()
 	 */
 	@Override
-	public void isWhite() {
+	public boolean isWhite() {
 		// TODO Auto-generated method stub
-
+		return this.white;
 	}
 
 }

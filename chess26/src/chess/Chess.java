@@ -1,5 +1,5 @@
 package chess;
-import chessItems.ChessPiece;
+import chessItems.*;
 public class Chess {
 
 	public static void main(String[] args) {
