@@ -1,0 +1,37 @@
+/**
+ * 
+ */
+package chessItems;
+
+/**
+ * @author matth
+ *
+ */
+public class King implements ChessPiece {
+
+	/**
+	 * 
+	 */
+	public King() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isLegal(int, int)
+	 */
+	@Override
+	public void isLegal(int start, int end) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isWhite()
+	 */
+	@Override
+	public void isWhite() {
+		// TODO Auto-generated method stub
+
+	}
+
+}
