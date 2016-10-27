@@ -13,8 +13,9 @@ public class Pawn implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	public Pawn() {
+	public Pawn(boolean white) {
 		// TODO Auto-generated constructor stub
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -41,7 +42,10 @@ public class Pawn implements ChessPiece {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		if(this.white){
+			return "wp";
+		}
+		return "bp";
 	}
 
 }

@@ -10,4 +10,5 @@ package chessItems;
 public interface ChessPiece {
 	public boolean isLegal(int start, int end);
 	public boolean isWhite();
+	public String toString();
 }

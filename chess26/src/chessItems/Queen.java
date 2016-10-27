@@ -13,8 +13,9 @@ public class Queen implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	public Queen() {
+	public Queen(boolean white) {
 		// TODO Auto-generated constructor stub
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -41,6 +42,9 @@ public class Queen implements ChessPiece {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		if(this.white){
+			return "wQ";
+		}
+		return "bQ";
 	}
 }

@@ -15,8 +15,9 @@ public class King implements ChessPiece {
 	private boolean white;
 	private boolean castling;
 	
-	public King() {
+	public King(boolean white) {
 		// TODO Auto-generated constructor stub
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -43,6 +44,9 @@ public class King implements ChessPiece {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		if(this.white){
+			return "wK";
+		}
+		return "bK";
 	}
 }

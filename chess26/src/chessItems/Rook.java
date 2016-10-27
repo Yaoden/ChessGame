@@ -14,8 +14,9 @@ public class Rook implements ChessPiece {
 	 */
 	private boolean white;
 	private boolean castling;
-	public Rook() {
+	public Rook(boolean white) {
 		// TODO Auto-generated constructor stub
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -42,6 +43,9 @@ public class Rook implements ChessPiece {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		if(this.white){
+			return "wR";
+		}
+		return "bR";
 	}
 }

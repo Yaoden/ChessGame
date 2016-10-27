@@ -13,9 +13,9 @@ public class Bishop implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	public Bishop() {
+	public Bishop(boolean white) {
 		// TODO Auto-generated constructor stub
-		
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -34,6 +34,19 @@ public class Bishop implements ChessPiece {
 	public boolean isWhite() {
 		// TODO Auto-generated method stub
 		return this.white;
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		if(this.white){
+			return "wB";
+		}
+		return "bB";
 	}
 
 }

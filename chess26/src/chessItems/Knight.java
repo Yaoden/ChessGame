@@ -13,8 +13,9 @@ public class Knight implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	public Knight() {
+	public Knight(boolean white) {
 		// TODO Auto-generated constructor stub
+		this.white = white;
 	}
 
 	/* (non-Javadoc)
@@ -41,6 +42,9 @@ public class Knight implements ChessPiece {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		if(this.white){
+			return "wN";
+		}
+		return "bN";
 	}
 }
