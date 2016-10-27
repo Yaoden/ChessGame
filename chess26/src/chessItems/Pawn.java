@@ -4,8 +4,8 @@
 package chessItems;
 
 /**
- * @author matth
- *
+ * @author Matthew Ya
+ * @author Taehee Lee
  */
 public class Pawn implements ChessPiece {
 
