@@ -13,9 +13,13 @@ public class Pawn implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
+	private boolean enpassant;
+	private boolean promotion;
 	public Pawn(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
+		this.enpassant = true;
+		this.promotion = false;
 	}
 
 	/* (non-Javadoc)

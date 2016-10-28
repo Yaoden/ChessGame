@@ -17,6 +17,7 @@ public class Rook implements ChessPiece {
 	public Rook(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
+		this.castling = true;
 	}
 
 	/* (non-Javadoc)
