@@ -117,6 +117,7 @@ public class ChessBoard {
 	private void move(String array[]) throws ArrayIndexOutOfBoundsException{
 		String start = array[0], end = array[1], other;
 		
+		
 		int fstart = start.toLowerCase().charAt(0) - 'a';
 		int rstart = 8 - Character.getNumericValue(start.charAt(1));
 	
@@ -126,15 +127,13 @@ public class ChessBoard {
 		if(array.length == 3){
 			other = array[2];
 		}
+		
 		if(this.white != board[rstart][fstart].isWhite()){
 			System.out.println("Illegal move, try again");
-		}else{
-			board[rend][fend] = board[rstart][fstart];
-			board[rstart][fstart] = null;
-			this.white = !this.white;
+		}else if(!board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+			System.out.println("Illegal move, try again");
 		}
 	}
-	
 	public String toString(){
 		
 		StringBuilder mes = new StringBuilder();

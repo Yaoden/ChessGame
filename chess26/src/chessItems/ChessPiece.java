@@ -8,7 +8,7 @@ package chessItems;
  * @author Taehee Lee
  */
 public interface ChessPiece {
-	public boolean isLegal(int start, int end);
+	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
 	public boolean isWhite();
 	public String toString();
 }

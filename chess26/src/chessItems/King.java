@@ -22,10 +22,10 @@ public class King implements ChessPiece {
 	}
 
 	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isLegal(int, int)
+	 * @see chessItems.ChessPiece#isLegal(int, int, int, int, ChessPiece)
 	 */
 	@Override
-	public boolean isLegal(int start, int end) {
+	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
 		return true;
 	}
