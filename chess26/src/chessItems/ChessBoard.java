@@ -94,12 +94,12 @@ public class ChessBoard {
 				}else{
 					array = mes.split(" ");	
 					if(array.length > 3 || array.length < 2){
-						System.out.println("Illegal input");
+						System.out.println("Illegal input 1");
 					}else{
 						if(array[0].length() != 2 || array[1].length() != 2){
-							System.out.println("Illegal input");
-						}else if(array.length == 3 && (array[2].compareToIgnoreCase("N") != 0 || array[2].compareToIgnoreCase("Q") != 0|| array[2].compareToIgnoreCase("R") != 0 || array[2].compareToIgnoreCase("B") != 0 || array[2].compareToIgnoreCase("draw") != 0)){
-							System.out.println("Illegal input");
+							System.out.println("Illegal input 2");
+						}else if(array.length == 3 && !(array[2].compareToIgnoreCase("N") == 0 || array[2].compareToIgnoreCase("Q") == 0|| array[2].compareToIgnoreCase("R") == 0 || array[2].compareToIgnoreCase("B") == 0 || array[2].compareToIgnoreCase("draw") == 0)){
+							System.out.println("Illegal input 3");
 						}else{
 							move(array);
 						}
@@ -126,9 +126,13 @@ public class ChessBoard {
 		if(array.length == 3){
 			other = array[2];
 		}
-		
-		board[rend][fend] = board[rstart][fstart];
-		board[rstart][fstart] = null;
+		if(this.white != board[rstart][fstart].isWhite()){
+			System.out.println("Illegal move, try again");
+		}else{
+			board[rend][fend] = board[rstart][fstart];
+			board[rstart][fstart] = null;
+			this.white = !this.white;
+		}
 	}
 	
 	public String toString(){
