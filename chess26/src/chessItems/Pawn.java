@@ -89,6 +89,7 @@ public class Pawn implements ChessPiece {
 		if((this.white && rend == 0) || (!this.white && rend == 7)){
 				this.promotion = true;
 		}
+		
 		return true;
 	}
 
