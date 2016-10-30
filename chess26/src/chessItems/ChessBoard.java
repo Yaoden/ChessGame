@@ -15,7 +15,6 @@ public class ChessBoard {
 	private boolean checkmate;
 	private boolean check;
 	private boolean draw;
-	private ChessPiece promotion;
 	
 	public ChessBoard() {
 		// TODO Auto-generated constructor stub
@@ -97,15 +96,20 @@ public class ChessBoard {
 					}
 				}else{
 					array = mes.split(" ");	
-					if(array[0].compareToIgnoreCase("draw") == 0 && this.draw){
-						//end game
-						checkmate = true;
-					}else if(array.length > 3 || array.length < 2){
+					//checks for draw
+					if(this.draw){
+						if(array[0].compareToIgnoreCase("draw") == 0){
+							//end game
+							break;
+						}else{
+							this.draw = false;
+						}
+					}
+					
+					if(array.length > 3 || array.length < 2){
 						System.out.println("Illegal input");
 					}else{
 						if(array[0].length() != 2 || array[1].length() != 2){
-							System.out.println("Illegal input");
-						}else if(array.length == 3 && !(array[2].compareToIgnoreCase("N") == 0 || array[2].compareToIgnoreCase("Q") == 0|| array[2].compareToIgnoreCase("R") == 0 || array[2].compareToIgnoreCase("B") == 0 || array[2].compareToIgnoreCase("draw") == 0)){
 							System.out.println("Illegal input");
 						}else{
 							move(array);
@@ -133,8 +137,10 @@ public class ChessBoard {
 		int fend = end.toLowerCase().charAt(0) - 'a';
 		int rend = 8 - Character.getNumericValue(end.charAt(1));
 		
+		ChessPiece promotion = null;
+		
 		if(this.white != board[rstart][fstart].isWhite()){
-			System.out.println("Illegal move, try again");
+			System.out.println("Illegal move: cannot select piece that does not belong to you.");
 			return;
 		}
 		
@@ -142,27 +148,38 @@ public class ChessBoard {
 			other = array[2];
 			if(other.compareToIgnoreCase("draw") == 0){
 				this.draw = true;
-			}else{
+			}else if(board[rstart][fstart].toString().charAt(1) == 'p' && ((this.white && rend == 0) ||(!this.white && rend == 7))){
 				if(other.compareToIgnoreCase("N") == 0){
-					this.promotion = new Knight(this.white);
+					promotion = new Knight(this.white);
 				}else if(other.compareToIgnoreCase("Q") == 0){
-					this.promotion = new Queen(this.white);
+					promotion = new Queen(this.white);
 				}else if(other.compareToIgnoreCase("R") == 0){
-					this.promotion =  new Rook(this.white);
+					promotion =  new Rook(this.white);
 				}else if(other.compareToIgnoreCase("B") == 0){
-					this.promotion = new Bishop(this.white);
+					promotion = new Bishop(this.white);
+				}else{
+					System.out.println("Illegal move: third input is invalid.");
+					return;
 				}
+			}else{
+				System.out.println("Illegal move: third input is invalid for " + board[rstart][fstart] + ".");
+				return;
 			}
 		}
-		
 		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+			if(board[rend][fend].toString().charAt(1) == 'p'){
+				if((this.white && rend == 0) || (!this.white && rend == 7)){
+					if(promotion == null){
+						board[rend][fend] = new Queen(this.white);
+					}else{
+						board[rend][fend] = promotion;
+					}
+				}
+			}
 			this.white = !this.white;
 		}else{
 			System.out.println("Illegal move, try again");
 		}
-	}
-	protected ChessPiece getPromotion(){
-		return this.promotion;
 	}
 	public String toString(){
 		

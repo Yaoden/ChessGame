@@ -11,7 +11,6 @@ public class Chess {
 		// TODO Auto-generated method stub
 		ChessBoard game = new ChessBoard();
 		game.play();
-
 	}
 
 }
