@@ -14,6 +14,9 @@ public class ChessBoard {
 	private boolean white;
 	private boolean checkmate;
 	private boolean check;
+	private boolean draw;
+	private ChessPiece promotion;
+	
 	public ChessBoard() {
 		// TODO Auto-generated constructor stub
 		this.board = new ChessPiece[8][8];
@@ -65,11 +68,12 @@ public class ChessBoard {
 		this.white = true;
 		this.check = false;
 		this.checkmate = false;
+		this.draw = false;
 	}
 	
 	public void play(){
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		String array[], mes = "";
+		String array[] = null, mes = "";
 		while(!this.checkmate){
 			System.out.println(toString());
 			if(this.white){
@@ -93,13 +97,16 @@ public class ChessBoard {
 					}
 				}else{
 					array = mes.split(" ");	
-					if(array.length > 3 || array.length < 2){
-						System.out.println("Illegal input 1");
+					if(array[0].compareToIgnoreCase("draw") == 0 && this.draw){
+						//end game
+						checkmate = true;
+					}else if(array.length > 3 || array.length < 2){
+						System.out.println("Illegal input");
 					}else{
 						if(array[0].length() != 2 || array[1].length() != 2){
-							System.out.println("Illegal input 2");
+							System.out.println("Illegal input");
 						}else if(array.length == 3 && !(array[2].compareToIgnoreCase("N") == 0 || array[2].compareToIgnoreCase("Q") == 0|| array[2].compareToIgnoreCase("R") == 0 || array[2].compareToIgnoreCase("B") == 0 || array[2].compareToIgnoreCase("draw") == 0)){
-							System.out.println("Illegal input 3");
+							System.out.println("Illegal input");
 						}else{
 							move(array);
 						}
@@ -109,12 +116,14 @@ public class ChessBoard {
 			} catch (IOException e) {
 				System.out.println("IOException: Looks like you fucked up the BufferedReader somehow. Good job.");
 			} catch (ArrayIndexOutOfBoundsException r){
-				System.out.println("Illegal move, try again");
+				System.out.println("Illegal move, try again EXCEPTION");
+			} catch (NullPointerException n){
+				System.out.println("Illegal move: no chess piece at " + array[0]);
 			}
 		}
 	}
 	
-	private void move(String array[]) throws ArrayIndexOutOfBoundsException{
+	private void move(String array[]) throws ArrayIndexOutOfBoundsException, NullPointerException{
 		String start = array[0], end = array[1], other;
 		
 		
@@ -124,15 +133,36 @@ public class ChessBoard {
 		int fend = end.toLowerCase().charAt(0) - 'a';
 		int rend = 8 - Character.getNumericValue(end.charAt(1));
 		
-		if(array.length == 3){
-			other = array[2];
-		}
-		
 		if(this.white != board[rstart][fstart].isWhite()){
 			System.out.println("Illegal move, try again");
-		}else if(!board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+			return;
+		}
+		
+		if(array.length == 3){
+			other = array[2];
+			if(other.compareToIgnoreCase("draw") == 0){
+				this.draw = true;
+			}else{
+				if(other.compareToIgnoreCase("N") == 0){
+					this.promotion = new Knight(this.white);
+				}else if(other.compareToIgnoreCase("Q") == 0){
+					this.promotion = new Queen(this.white);
+				}else if(other.compareToIgnoreCase("R") == 0){
+					this.promotion =  new Rook(this.white);
+				}else if(other.compareToIgnoreCase("B") == 0){
+					this.promotion = new Bishop(this.white);
+				}
+			}
+		}
+		
+		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+			this.white = !this.white;
+		}else{
 			System.out.println("Illegal move, try again");
 		}
+	}
+	protected ChessPiece getPromotion(){
+		return this.promotion;
 	}
 	public String toString(){
 		
