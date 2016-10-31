@@ -36,7 +36,6 @@ public class Pawn implements ChessPiece {
 
 		//checks if pawn is moving one or two spaces foward.
 		if(fstart == fend){
-			//change this if statement
 			if((Math.abs(rstart - rend) == 2) && this.firstMove && (board[rstart + (rend-rstart)][fend] == null) && (board[rend][fend] == null)){
 				this.enpassant = true;
 				board[rend][fend] = board[rstart][fstart];

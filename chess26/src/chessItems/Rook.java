@@ -14,6 +14,7 @@ public class Rook implements ChessPiece {
 	 */
 	private boolean white;
 	private boolean castling;
+	
 	public Rook(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
@@ -26,6 +27,11 @@ public class Rook implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
+		if(fstart == fend){
+			
+		}else if(rstart == rend){
+			
+		}
 		return true;
 	}
 

@@ -24,6 +24,7 @@ public class Queen implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
+		System.out.println("Queen");
 		return true;
 	}
 

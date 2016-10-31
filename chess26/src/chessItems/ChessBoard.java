@@ -176,7 +176,7 @@ public class ChessBoard {
 					}
 				}
 			}
-			this.white = !this.white;
+			//this.white = !this.white;
 		}else{
 			System.out.println("Illegal move, try again");
 		}

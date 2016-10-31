@@ -24,6 +24,7 @@ public class Bishop implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
+		
 		return true;
 	}
 
