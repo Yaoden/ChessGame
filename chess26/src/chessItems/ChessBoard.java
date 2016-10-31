@@ -121,8 +121,10 @@ public class ChessBoard {
 				System.out.println("IOException: Looks like you fucked up the BufferedReader somehow. Good job.");
 			} catch (ArrayIndexOutOfBoundsException r){
 				System.out.println("Illegal move, try again EXCEPTION");
+				r.printStackTrace();
 			} catch (NullPointerException n){
 				System.out.println("Illegal move: no chess piece at " + array[0]);
+				n.printStackTrace();
 			}
 		}
 	}
@@ -167,7 +169,7 @@ public class ChessBoard {
 			}
 		}
 		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
-			if(board[rend][fend].toString().charAt(1) == 'p'){
+			if(board[rend][fend] != null && board[rend][fend].toString().charAt(1) == 'p'){
 				if((this.white && rend == 0) || (!this.white && rend == 7)){
 					if(promotion == null){
 						board[rend][fend] = new Queen(this.white);
@@ -176,7 +178,8 @@ public class ChessBoard {
 					}
 				}
 			}
-			//this.white = !this.white;
+			
+			//this.white = !this.white; //Commented this out for testing purposes 
 		}else{
 			System.out.println("Illegal move, try again");
 		}
