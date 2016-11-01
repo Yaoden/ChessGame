@@ -13,11 +13,11 @@ public class Knight implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	private boolean firstMove;
+	
 	public Knight(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
-		this.firstMove = true;
+		
 	}
 
 	/* (non-Javadoc)
@@ -26,8 +26,8 @@ public class Knight implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
-		if(Math.abs(rstart-rend)== 2  && Math.abs(fstart-fend)== 1 || Math.abs(rstart-rend)== 1  && Math.abs(fstart-fend)== 2){
-			if(board[rend][fend].isWhite()){
+		if(Math.abs(rstart-rend)== 2  && Math.abs(fstart-fend)== 1 || Math.abs(rstart-rend)== 1  && Math.abs(fstart-fend)== 2){//legal moves for a knight in L shape
+			if(board[rend][fend].isWhite()){//Makes sure the piece where it ends up is not white
 				return false;
 			}
 			board[rend][fend] = board[rstart][fstart];

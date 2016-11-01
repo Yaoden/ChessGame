@@ -24,8 +24,64 @@ public class Queen implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
-		System.out.println("Queen");
+		int fchange = 0, rchange = 0;
+		if(Math.abs(fstart - fend) == Math.abs(rstart - rend)){
+			fchange = fstart - fend;
+			rchange = rstart - rend;
+			
+			//positive/positive array change
+			if(rchange < 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart + i] != null){
+						return false;
+					}
+				}
+				
+			//negative/negative array change
+			}else if(rchange > 0 && fchange > 0){
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart - i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//positive/negative array change
+			}else if(rchange < 0 && fchange > 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//negative/positive array change
+			}else if(rchange > 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart - i][fstart + i] != null){
+						return false;
+					}
+				}
+			}
+		
+			if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
+				return false;
+			}
+		}else if(Math.abs(fstart-fend) == 0 || Math.abs(rstart-rend) == 0){//checking for straight movements
+			if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
+				return false;
+			}
+			board[rend][fend] = board[rstart][fstart];
+			board[rstart][fstart] = null;
+			return true;
+				
+		}else{
+			return false;
+		}
+		board[rend][fend] = board[rstart][fstart];
+		board[rstart][fstart] = null;
 		return true;
+	
+		//System.out.println("Queen");
+		
 	}
 
 	/* (non-Javadoc)
