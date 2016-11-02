@@ -27,12 +27,20 @@ public class Rook implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
+	if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
+		return false;
+	}else{
 		if(fstart == fend){
-			
+			board[rend][fend] = board[rstart][fstart];
+			board[rstart][fstart] = null;
+			return true;
 		}else if(rstart == rend){
-			
+			board[rend][fend] = board[rstart][fstart];
+			board[rstart][fstart] = null;
+			return true;
 		}
-		return true;
+	}
+		return false;
 	}
 
 	/* (non-Javadoc)
