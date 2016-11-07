@@ -13,9 +13,11 @@ public class Bishop implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
+	private int moves;
 	public Bishop(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
+		this.moves = 0;
 	}
 
 	/* (non-Javadoc)
@@ -24,11 +26,9 @@ public class Bishop implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
 		// TODO Auto-generated method stub
-		int fchange = 0, rchange = 0;
-		if(Math.abs(fstart - fend) == Math.abs(rstart - rend)){
-			fchange = fstart - fend;
-			rchange = rstart - rend;
-			
+		int fchange = fstart - fend, rchange = rstart - rend;
+		if(Math.abs(fchange) == Math.abs(rchange)){
+
 			//positive/positive array change
 			if(rchange < 0 && fchange < 0){
 				for(int i = 1; i < Math.abs(rchange); i++){
@@ -61,6 +61,8 @@ public class Bishop implements ChessPiece {
 					}
 				}
 			}
+			
+			//checks if the end fileRank contains a piece that is the same color as the piece being moved.
 			if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
 				return false;
 			}
@@ -69,6 +71,7 @@ public class Bishop implements ChessPiece {
 		}
 		board[rend][fend] = board[rstart][fstart];
 		board[rstart][fstart] = null;
+		moves++;
 		return true;
 	}
 
@@ -93,5 +96,12 @@ public class Bishop implements ChessPiece {
 		}
 		return "bB";
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#getMoves()
+	 */
+	@Override
+	public int getMoves(){
+		return this.moves;
+	}
 }

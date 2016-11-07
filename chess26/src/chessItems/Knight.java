@@ -13,10 +13,11 @@ public class Knight implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	
+	private int moves;
 	public Knight(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
+		this.moves = 0;
 		
 	}
 
@@ -24,19 +25,19 @@ public class Knight implements ChessPiece {
 	 * @see chessItems.ChessPiece#isLegal(int, int, int, int, ChessPiece)
 	 */
 	@Override
-	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]){
+	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) throws ArrayIndexOutOfBoundsException{
 		// TODO Auto-generated method stub
 		if(Math.abs(rstart-rend)== 2  && Math.abs(fstart-fend)== 1 || Math.abs(rstart-rend)== 1  && Math.abs(fstart-fend)== 2){//legal moves for a knight in L shape
-			if(board[rend][fend].isWhite()){//Makes sure the piece where it ends up is not white
+			if(board[rend][fend] != null && board[rend][fend].isWhite()){//Makes sure the piece where it ends up is not white
 				return false;
 			}
-			board[rend][fend] = board[rstart][fstart];
-			board[rstart][fstart] = null;
-			
-		
 		}else{
-		return false;
+			return false;
 		}
+		
+		board[rend][fend] = board[rstart][fstart];
+		board[rstart][fstart] = null;
+		moves++;
 		return true;
 	}
 
@@ -59,5 +60,12 @@ public class Knight implements ChessPiece {
 			return "wN";
 		}
 		return "bN";
+	}
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#getMoves()
+	 */
+	@Override
+	public int getMoves(){
+		return this.moves;
 	}
 }

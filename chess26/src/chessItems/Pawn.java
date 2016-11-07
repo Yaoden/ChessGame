@@ -13,14 +13,16 @@ public class Pawn implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	private boolean firstMove;
 	private boolean enpassant;
+	private int moves;
+	
 	public Pawn(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
-		this.firstMove = true;
 		this.enpassant = false;
+		this.moves = 0;
 	}
+	
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#isLegal(int, int, int, int, ChessPiece[][])
 	 */
@@ -36,7 +38,7 @@ public class Pawn implements ChessPiece {
 
 		//checks if pawn is moving one or two spaces foward.
 		if(fstart == fend){
-			if((Math.abs(rstart - rend) == 2) && this.firstMove && (board[rstart + (rend-rstart)][fend] == null) && (board[rend][fend] == null)){
+			if((Math.abs(rstart - rend) == 2) && this.moves == 0 && (board[rstart + (rend-rstart)][fend] == null) && (board[rend][fend] == null)){
 				this.enpassant = true;
 				board[rend][fend] = board[rstart][fstart];
 				board[rstart][fstart] = null;
@@ -74,13 +76,12 @@ public class Pawn implements ChessPiece {
 		//at this point the move was successful
 		
 		//checks if it is the first move and adjusts value to false after first move
-		if(this.firstMove){
-			this.firstMove = false;
-		}else{
+		if(this.moves > 0){
 			if(this.enpassant){
 				this.enpassant = false;
 			}
 		}
+		moves++;
 		return true;
 	}
 
@@ -104,5 +105,12 @@ public class Pawn implements ChessPiece {
 		}
 		return "bp";
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#getMoves()
+	 */
+	@Override
+	public int getMoves(){
+		return this.moves;
+	}
 }
