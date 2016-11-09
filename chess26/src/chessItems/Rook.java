@@ -63,6 +63,7 @@ public class Rook implements ChessPiece {
 		}else{
 			return false;
 		}
+		
 		if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
 			return false;
 		}
@@ -98,5 +99,48 @@ public class Rook implements ChessPiece {
 	@Override
 	public int getMoves(){
 		return this.moves;
+	}
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 */
+	@Override
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
+		// TODO Auto-generated method stub
+		int fchange = 0, rchange = 0;
+		fchange = fstart - fend;
+		rchange = rstart - rend;
+		if(fchange == 0){ //checking up and down movements
+			if(rchange < 0){
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart + i][fstart] != null){
+						return false;
+					}
+				}
+			}else{
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart - i][fstart] != null){
+						return false;
+					}
+				}
+			}
+		}else if(rchange == 0){ //checking side to side movements
+			if(fchange < 0){
+				for(int i = 1; i < fchange; i++){
+					if(board[rstart][fstart + i] != null){
+						return false;
+					}
+				}
+			}else{
+				for(int i = 1; i < fchange; i++){
+					if(board[rstart][fstart - i] != null){
+						return false;
+					}
+				}
+			}
+		}else{
+			return false;
+		}
+		return true;
 	}
 }
