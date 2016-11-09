@@ -13,15 +13,18 @@ public class ChessBoard {
 	//used to indicate if it's white's turn or black's turn
 	private boolean white;
 	private boolean checkmate;
-	private boolean check;
+	private boolean wcheck;
+	private boolean bcheck;
 	private boolean draw;
-	
+	private int[] wking;
+	private int[] bking;
 	public ChessBoard() {
 		// TODO Auto-generated constructor stub
 		this.board = new ChessPiece[8][8];
 		//White pieces
 		
 		//Pawns
+		/*
 		board[6][0] = new Pawn(true);
 		board[6][1] = new Pawn(true);
 		board[6][2] = new Pawn(true);
@@ -62,12 +65,27 @@ public class ChessBoard {
 		board[0][5] = new Bishop(false);
 		board[0][6] = new Knight(false);
 		board[0][7] = new Rook(false);
+		*/
+		
+		
+		//testing purposes/////////////////////////
+		
+		///////////////////////////////////////////
 		
 		//white's turn 
-		this.white = true;
-		this.check = false;
+		this.white = true; //change to true
+		this.wcheck = false;
+		this.bcheck = false;
 		this.checkmate = false;
 		this.draw = false;
+		
+		//keeps track of king
+		this.wking = new int[2];
+		this.wking[0] = 7;
+		this.wking[1] = 4;
+		this.bking = new int[2];
+		this.bking[0] = 0;
+		this.bking[1] = 4;
 	}
 	
 	public void play(){
@@ -141,10 +159,19 @@ public class ChessBoard {
 		
 		ChessPiece promotion = null;
 		
+		//checks to see if the piece selected belongs to player
 		if(this.white != board[rstart][fstart].isWhite()){
 			System.out.println("Illegal move: cannot select piece that does not belong to you.");
 			return;
 		}
+		
+		//checks to see if player is in check and the piece selected is a king
+		if((this.white && (board[rstart][fstart].toString().compareToIgnoreCase("wk") != 0) && this.wcheck) || (!this.white && (board[rstart][fstart].toString().compareToIgnoreCase("bk") != 0) && this.bcheck)){
+			System.out.println("Illegal move: king is in check");
+			return;
+		}
+		
+		
 		
 		if(array.length == 3){
 			other = array[2];
@@ -168,8 +195,11 @@ public class ChessBoard {
 				return;
 			}
 		}
+		//handles legal move
 		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+			//handles promotion
 			if(board[rend][fend] != null && board[rend][fend].toString().charAt(1) == 'p'){
+				
 				if((this.white && rend == 0) || (!this.white && rend == 7)){
 					if(promotion == null){
 						board[rend][fend] = new Queen(this.white);
@@ -177,9 +207,22 @@ public class ChessBoard {
 						board[rend][fend] = promotion;
 					}
 				}
+			//keeps track of the kings position. 
+			}else if(board[rend][fend] != null && board[rend][fend].toString().charAt(1) == 'K'){
+				if(this.white){
+					wking[0] = rend;
+					wking[1] = fend;
+				}else{
+					bking[0] = rend;
+					bking[1] = fend;
+				}
 			}
-			
-			//this.white = !this.white; //Commented this out for testing purposes 
+			if(this.white){
+				this.bcheck = isCheck(bking[1], bking[0]);
+			}else{
+				this.wcheck = isCheck(wking[1], wking[0]);
+			}
+			this.white = !this.white;
 		}else{
 			System.out.println("Illegal move, try again");
 		}
@@ -213,5 +256,26 @@ public class ChessBoard {
 		}
 		mes.append(" a  b  c  d  e  f  g  h\n");
 		return mes.toString();
+	}
+	private boolean isCheck(int fend, int rend){
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				if(board[i][j] !=null){
+					
+					//checks for white pieces on white's turn
+					if(board[i][j].isWhite() && this.white){
+						if(board[i][j].isCheck(j, i, fend, rend, this.board)){
+							return true;
+						}
+					//checks for black pieces on black's turn
+					}else if(!board[i][j].isWhite() && !this.white){
+						if(board[i][j].isCheck(j, i, fend, rend, this.board)){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

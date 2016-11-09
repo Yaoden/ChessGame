@@ -86,6 +86,8 @@ public class King implements ChessPiece {
 				return false;
 			}
 			
+			
+			
 			return true;
 			
 		//checks for legal king move
@@ -130,5 +132,17 @@ public class King implements ChessPiece {
 	@Override
 	public int getMoves(){
 		return this.moves;
+	}
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 */
+	@Override
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
+		// TODO Auto-generated method stub
+		if(Math.abs(fstart - fend) > 1 || Math.abs(rstart - rend) > 1){
+			return false;
+		}
+		return true;
 	}
 }

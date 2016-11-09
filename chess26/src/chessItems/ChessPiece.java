@@ -12,4 +12,5 @@ public interface ChessPiece {
 	public boolean isWhite();
 	public String toString();
 	public int getMoves();
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
 }

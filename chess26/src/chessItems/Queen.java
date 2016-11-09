@@ -134,4 +134,81 @@ public class Queen implements ChessPiece {
 	public int getMoves(){
 		return this.moves;
 	}
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 */
+	@Override
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
+		// TODO Auto-generated method stub
+		
+		int fchange = 0, rchange = 0;
+		fchange = fstart - fend;
+		rchange = rstart - rend;
+		if(Math.abs(fchange) == Math.abs(rchange)){
+			//positive/positive array change
+			if(rchange < 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart + i] != null){
+						return false;
+					}
+				}
+				
+			//negative/negative array change
+			}else if(rchange > 0 && fchange > 0){
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart - i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//positive/negative array change
+			}else if(rchange < 0 && fchange > 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//negative/positive array change
+			}else if(rchange > 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart - i][fstart + i] != null){
+						return false;
+					}
+				}
+			}
+		}else if(fchange == 0){ //checking up and down movements
+			if(rchange < 0){
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart + i][fstart] != null){
+						return false;
+					}
+				}
+			}else{
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart - i][fstart] != null){
+						return false;
+					}
+				}
+			}
+		}else if(rchange == 0){ //checking side to side movements
+			if(fchange < 0){
+				for(int i = 1; i < fchange; i++){
+					if(board[rstart][fstart + i] != null){
+						return false;
+					}
+				}
+			}else{
+				for(int i = 1; i < fchange; i++){
+					if(board[rstart][fstart - i] != null){
+						return false;
+					}
+				}
+			}
+		}else{
+			return false;
+		}
+		return true;
+	}
 }

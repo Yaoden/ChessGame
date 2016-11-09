@@ -104,4 +104,52 @@ public class Bishop implements ChessPiece {
 	public int getMoves(){
 		return this.moves;
 	}
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 */
+	@Override
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
+		// TODO Auto-generated method stub
+		int fchange = fstart - fend, rchange = rstart - rend;
+		if(Math.abs(fchange) == Math.abs(rchange)){
+
+			//positive/positive array change
+			if(rchange < 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart + i] != null){
+						return false;
+					}
+				}
+				
+			//negative/negative array change
+			}else if(rchange > 0 && fchange > 0){
+				for(int i = 1; i < rchange; i++){
+					if(board[rstart - i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//positive/negative array change
+			}else if(rchange < 0 && fchange > 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart + i][fstart - i] != null){
+						return false;
+					}
+				}
+				
+			//negative/positive array change
+			}else if(rchange > 0 && fchange < 0){
+				for(int i = 1; i < Math.abs(rchange); i++){
+					if(board[rstart - i][fstart + i] != null){
+						return false;
+					}
+				}
+			}
+		}else{
+			return false;
+		}
+		
+		return true;
+	}
 }
