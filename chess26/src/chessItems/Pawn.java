@@ -113,4 +113,16 @@ public class Pawn implements ChessPiece {
 	public int getMoves(){
 		return this.moves;
 	}
+	
+	/* (non-Javadoc)
+	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 */
+	@Override
+	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
+		// TODO Auto-generated method stub
+		if((fstart-fend == 1 || fstart-fend == -1) && ((this.white && rstart-rend == 1) || (!this.white && rstart-rend == -1))){
+			return true;
+		}
+		return false;
+	}
 }
