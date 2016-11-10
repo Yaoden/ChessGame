@@ -65,7 +65,7 @@ public class Queen implements ChessPiece {
 			}
 		}else if(fchange == 0){ //checking up and down movements
 			if(rchange < 0){
-				for(int i = 1; i < rchange; i++){
+				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart + i][fstart] != null){
 						return false;
 					}
@@ -79,7 +79,7 @@ public class Queen implements ChessPiece {
 			}
 		}else if(rchange == 0){ //checking side to side movements
 			if(fchange < 0){
-				for(int i = 1; i < fchange; i++){
+				for(int i = 1; i < Math.abs(fchange); i++){
 					if(board[rstart][fstart + i] != null){
 						return false;
 					}
@@ -180,7 +180,7 @@ public class Queen implements ChessPiece {
 			}
 		}else if(fchange == 0){ //checking up and down movements
 			if(rchange < 0){
-				for(int i = 1; i < rchange; i++){
+				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart + i][fstart] != null){
 						return false;
 					}
@@ -194,7 +194,7 @@ public class Queen implements ChessPiece {
 			}
 		}else if(rchange == 0){ //checking side to side movements
 			if(fchange < 0){
-				for(int i = 1; i < fchange; i++){
+				for(int i = 1; i < Math.abs(fchange); i++){
 					if(board[rstart][fstart + i] != null){
 						return false;
 					}

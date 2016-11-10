@@ -21,10 +21,10 @@ public class ChessBoard {
 	public ChessBoard() {
 		// TODO Auto-generated constructor stub
 		this.board = new ChessPiece[8][8];
+		
 		//White pieces
 		
 		//Pawns
-		/*
 		board[6][0] = new Pawn(true);
 		board[6][1] = new Pawn(true);
 		board[6][2] = new Pawn(true);
@@ -65,15 +65,7 @@ public class ChessBoard {
 		board[0][5] = new Bishop(false);
 		board[0][6] = new Knight(false);
 		board[0][7] = new Rook(false);
-		*/
-		
-		
-		//testing purposes/////////////////////////
-		board[0][3] = new Queen(false);
-		board[7][3] = new Queen(true);
-		board[0][4] = new King(false);
-		board[7][4] = new King(true);
-		///////////////////////////////////////////
+
 		
 		//white's turn 
 		this.white = true; //change to true
@@ -83,9 +75,12 @@ public class ChessBoard {
 		this.draw = false;
 		
 		//keeps track of king
+		//white king starts at 7,4
 		this.wking = new int[2];
 		this.wking[0] = 7;
 		this.wking[1] = 4;
+		
+		//black king starts at 0,4
 		this.bking = new int[2];
 		this.bking[0] = 0;
 		this.bking[1] = 4;
@@ -94,7 +89,7 @@ public class ChessBoard {
 	public void play(){
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String array[] = null, mes = "";
-		while(!this.checkmate){
+		while(!isCheckMate()){
 			System.out.println(toString());
 			if(this.white){
 				System.out.print("White's move: ");
@@ -109,12 +104,12 @@ public class ChessBoard {
 				if(mes.isEmpty()){
 					System.out.println("Error: Empty input");
 				}else if(mes.compareToIgnoreCase("resign") == 0){
-					checkmate = true;
 					if(this.white){
 						System.out.println("White resigns.\nBlack wins.");
 					}else{
 						System.out.println("Black resigns.\nWhite wins.");
 					}
+					break;
 				}else{
 					array = mes.split(" ");	
 					//checks for draw
@@ -168,10 +163,25 @@ public class ChessBoard {
 			return;
 		}
 		
-		if(this.wcheck || this.bcheck){
+		//If the current player check, then check to see if the moves will uncheck current player.
+		if((this.wcheck && this.white) || (this.bcheck && !this.white)){
+			
+			//checks to see if king is attempting to castle when in check
+			if((this.board[rstart][fstart].toString().charAt(1) == 'K') && (this.board[rstart][fstart].getMoves() == 0) && (Math.abs(fstart-fend) == 2)){
+				System.out.println("Illegal move, try again");
+				return;
+			}
+			
+			
 			if(!outOfCheck(fstart, rstart, fend, rend)){
 				System.out.println("Illegal move: king is in check");
 				return;
+			}else{
+				if(this.white){
+					this.wcheck = false;
+				}else{
+					this.bcheck = false;
+				}
 			}
 		}
 		
@@ -180,7 +190,7 @@ public class ChessBoard {
 			other = array[2];
 			if(other.compareToIgnoreCase("draw") == 0){
 				this.draw = true;
-			}else if(board[rstart][fstart].toString().charAt(1) == 'p' && ((this.white && rend == 0) ||(!this.white && rend == 7))){
+			}else if(this.board[rstart][fstart].toString().charAt(1) == 'p' && ((this.white && rend == 0) ||(!this.white && rend == 7))){
 				if(other.compareToIgnoreCase("N") == 0){
 					promotion = new Knight(this.white);
 				}else if(other.compareToIgnoreCase("Q") == 0){
@@ -194,16 +204,16 @@ public class ChessBoard {
 					return;
 				}
 			}else{
-				System.out.println("Illegal move: third input is invalid for " + board[rstart][fstart] + ".");
+				System.out.println("Illegal move: third input is invalid for " + this.board[rstart][fstart] + ".");
 				return;
 			}
 		}
 		
 		
 		//handles legal move
-		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
+		if(this.board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
 			//handles promotion
-			if(board[rend][fend] != null && board[rend][fend].toString().charAt(1) == 'p'){
+			if(this.board[rend][fend] != null && this.board[rend][fend].toString().charAt(1) == 'p'){
 				
 				if((this.white && rend == 0) || (!this.white && rend == 7)){
 					if(promotion == null){
@@ -213,7 +223,7 @@ public class ChessBoard {
 					}
 				}
 			//keeps track of the kings position. 
-			}else if(board[rend][fend] != null && board[rend][fend].toString().charAt(1) == 'K'){
+			}else if(this.board[rend][fend] != null && this.board[rend][fend].toString().charAt(1) == 'K'){
 				if(this.white){
 					wking[0] = rend;
 					wking[1] = fend;
@@ -262,7 +272,10 @@ public class ChessBoard {
 		if(!test[rstart][fstart].isLegal(fstart, rstart, fend, rend, test)){
 			return false;
 		}
-		
+		if(isCheck(file, rank, !this.white, test)){
+			return false;
+		}
+		/*
 		if(this.white){
 			if(isCheck(file, rank, false, test)){
 				return false;
@@ -272,6 +285,7 @@ public class ChessBoard {
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 	
@@ -281,8 +295,8 @@ public class ChessBoard {
 		mes.append("\n");
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
-				if(board[i][j] != null){
-					mes.append(board[i][j].toString() + " ");
+				if(this.board[i][j] != null){
+					mes.append(this.board[i][j].toString() + " ");
 				}else{
 					if(i%2 == 0){
 						if(j%2 == 0){
@@ -305,6 +319,7 @@ public class ChessBoard {
 		mes.append(" a  b  c  d  e  f  g  h\n");
 		return mes.toString();
 	}
+	
 	private boolean isCheck(int fend, int rend, boolean w, ChessPiece test[][]){
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
@@ -313,15 +328,52 @@ public class ChessBoard {
 						if(test[i][j].isCheck(j, i, fend, rend, test)){
 							return true;
 						}
-					//checks for black pieces on black's turn
-					}/*else if(!board[i][j].isWhite() && !this.white){
-						if(board[i][j].isCheck(j, i, fend, rend, this.board)){
-							return true;
-						}
-					}*/
+					}
 				}
 			}
 		}
 		return false;
+	}
+	
+	private boolean isCheckMate(){
+
+		int file = 0, rank = 0;
+		
+		if((this.white && this.wcheck) || (!this.white && this.bcheck)){
+			
+			if(this.white){
+				file = wking[1];
+				rank = wking[0];
+			}else{
+				file = bking[1];
+				rank = bking[0];				
+			}
+			
+			for(int i = -1; i <= 1 ; i++){
+				for(int j = -1; j <= 1; j++){
+					if((file + j >= 0 && file + j < 8) && (rank + i >= 0 && rank + i < 8)){
+						if(this.board[rank+i][file+j] == null){
+							if(this.white){
+								if(!isCheck(file+j, rank+i, !this.white, this.board)){
+									return false;
+								}
+							}else{
+								if(!isCheck(file+j, rank+i, !this.white, this.board)){
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+		}else{
+			return false;
+		}
+		if(this.white){
+			System.out.println("Black wins");
+		}else{
+			System.out.println("White wins");
+		}
+		return true;
 	}
 }
