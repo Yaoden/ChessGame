@@ -139,8 +139,14 @@ public class ChessBoard {
 			System.out.println(toString());
 			
 			if(this.white){
+				if(this.wcheck){
+					System.out.println("White King is in Check");
+				}
 				System.out.print("White's move: ");
 			}else{
+				if(this.bcheck){
+					System.out.println("Black King is in Check");
+				}
 				System.out.print("Black's move: ");
 			}
 			
