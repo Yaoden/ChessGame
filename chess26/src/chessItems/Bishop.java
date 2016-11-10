@@ -29,7 +29,7 @@ public class Bishop implements ChessPiece {
 		int fchange = fstart - fend, rchange = rstart - rend;
 		if(Math.abs(fchange) == Math.abs(rchange)){
 
-			//positive/positive array change
+			//positive/positive array change. diagonal moves towards the bottom right of the board.
 			if(rchange < 0 && fchange < 0){
 				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart + i][fstart + i] != null){
@@ -37,7 +37,7 @@ public class Bishop implements ChessPiece {
 					}
 				}
 				
-			//negative/negative array change
+			//negative/negative array change. diagonal moves towards the top left of the board.
 			}else if(rchange > 0 && fchange > 0){
 				for(int i = 1; i < rchange; i++){
 					if(board[rstart - i][fstart - i] != null){
@@ -45,7 +45,7 @@ public class Bishop implements ChessPiece {
 					}
 				}
 				
-			//positive/negative array change
+			//positive/negative array change. diagonal moves towards the bottom left of the board.
 			}else if(rchange < 0 && fchange > 0){
 				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart + i][fstart - i] != null){
@@ -53,7 +53,7 @@ public class Bishop implements ChessPiece {
 					}
 				}
 				
-			//negative/positive array change
+			//negative/positive array change. diagonal moves towards the top right of the board.
 			}else if(rchange > 0 && fchange < 0){
 				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart - i][fstart + i] != null){

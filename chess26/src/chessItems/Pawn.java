@@ -31,7 +31,6 @@ public class Pawn implements ChessPiece {
 		// TODO Auto-generated method stub
 		
 		//can not move pawn backwards
-
 		if((this.white && rend > rstart) || (!this.white && rstart > rend)){
 			return false;
 		}
@@ -48,7 +47,10 @@ public class Pawn implements ChessPiece {
 			}else{
 				return false;
 			}
+		//checks if pawn is attempting to take opponents piece
 		}else if(Math.abs(fstart-fend) == 1 && Math.abs(rstart-rend) == 1 ){
+			
+			//checks for enpassant
 			if(board[rend][fend] == null){
 				if(board[rend+(rstart-rend)][fend] != null && (board[rend+(rstart-rend)][fend].toString().charAt(1) == 'p')){	//is not null and is a pawn
 					Pawn copy = (Pawn) board[rend+(rstart-rend)][fend];
@@ -62,6 +64,7 @@ public class Pawn implements ChessPiece {
 				}else{
 					return false;
 				}
+			
 			}else{
 				if(board[rstart][fstart].isWhite() != board[rend][fend].isWhite()){
 					board[rend][fend] = board[rstart][fstart];

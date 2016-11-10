@@ -108,7 +108,9 @@ public class Rook implements ChessPiece {
 		int fchange = 0, rchange = 0;
 		fchange = fstart - fend;
 		rchange = rstart - rend;
-		if(fchange == 0){ //checking up and down movements
+		
+		//checking up and down movements
+		if(fchange == 0){ 
 			if(rchange < 0){
 				for(int i = 1; i < Math.abs(rchange); i++){
 					if(board[rstart + i][fstart] != null){
@@ -122,7 +124,9 @@ public class Rook implements ChessPiece {
 					}
 				}
 			}
-		}else if(rchange == 0){ //checking side to side movements
+			
+		//checking side to side movements
+		}else if(rchange == 0){ 
 			if(fchange < 0){
 				for(int i = 1; i < Math.abs(fchange); i++){
 					if(board[rstart][fstart + i] != null){

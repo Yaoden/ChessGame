@@ -8,6 +8,12 @@ public interface ChessPiece {
 	/**
 	 * Checks to see if move is legal and then moves the piece.
 	 * 
+	 * <p>
+	 * Each Piece that implements this method will have two fiels: boolean white and int moves.
+	 * boolean white - determines the color of the piece (true = white, false = black).
+	 * int moves - contains the number of moves this piece has made.
+	 * <p>
+	 * 
 	 * @param fstart file from which a piece is being moved
 	 * @param rstart rank from which a piece is being moved
 	 * @param fend   file to which a piece is being moved

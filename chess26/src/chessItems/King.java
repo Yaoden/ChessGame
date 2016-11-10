@@ -88,7 +88,11 @@ public class King implements ChessPiece {
 			
 			return true;
 			
-		//checks for legal king move
+		/**checks for legal king move in this vicinity.
+		 * 				-1,-1	-1,0	-1,1
+		 * 				 0,-1	 KING	 0,1
+		 * 				 1,-1	 1,0	 1,1
+		 */
 		}else if(Math.abs(fstart - fend) > 1 || Math.abs(rstart - rend) > 1){
 			return false;
 		}

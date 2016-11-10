@@ -27,8 +27,11 @@ public class Knight implements ChessPiece {
 	@Override
 	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) throws ArrayIndexOutOfBoundsException{
 		// TODO Auto-generated method stub
-		if(Math.abs(rstart-rend)== 2  && Math.abs(fstart-fend)== 1 || Math.abs(rstart-rend)== 1  && Math.abs(fstart-fend)== 2){//legal moves for a knight in L shape
-			if(board[rend][fend] != null && board[rend][fend].isWhite()){//Makes sure the piece where it ends up is not white
+		
+		//legal moves for a knight in L shape
+		if(Math.abs(rstart-rend)== 2  && Math.abs(fstart-fend)== 1 || Math.abs(rstart-rend)== 1  && Math.abs(fstart-fend)== 2){
+			//Makes sure the knight does not attempt to take a piece of the same color.
+			if(board[rend][fend] != null && (board[rend][fend].isWhite() == board[rstart][fstart].isWhite())){
 				return false;
 			}
 		}else{
