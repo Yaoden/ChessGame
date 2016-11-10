@@ -71,7 +71,7 @@ public class Knight implements ChessPiece {
 	}
 	
 	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 * @see chessItems.ChessPiece#isCheck(int, int, int, int, ChessPiece)
 	 */
 	@Override
 	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {

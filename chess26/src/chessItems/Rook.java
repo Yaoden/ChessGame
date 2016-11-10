@@ -13,13 +13,11 @@ public class Rook implements ChessPiece {
 	 * 
 	 */
 	private boolean white;
-	private boolean castling;
 	private int moves;
 	
 	public Rook(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
-		this.castling = true;
 		this.moves = 0;
 	}
 
@@ -102,7 +100,7 @@ public class Rook implements ChessPiece {
 	}
 	
 	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isCheck(int, int)
+	 * @see chessItems.ChessPiece#isCheck(int, int, int, int, ChessPiece)
 	 */
 	@Override
 	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]) {
