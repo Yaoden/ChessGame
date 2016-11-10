@@ -22,8 +22,8 @@ public class ChessBoard {
 		// TODO Auto-generated constructor stub
 		this.board = new ChessPiece[8][8];
 		
-		//White pieces
 		
+		//White pieces
 		//Pawns
 		board[6][0] = new Pawn(true);
 		board[6][1] = new Pawn(true);
@@ -65,7 +65,17 @@ public class ChessBoard {
 		board[0][5] = new Bishop(false);
 		board[0][6] = new Knight(false);
 		board[0][7] = new Rook(false);
-
+		
+		/*
+		board[0][3] = new Queen(false);
+		board[0][4] = new King(false);
+		board[7][3] = new Queen(true);
+		board[7][4] = new King(true);
+		board[0][0] = new Rook(false);
+		board[0][7] = new Rook(false);
+		board[7][0] = new Rook(true);
+		board[7][7] = new Rook(true);
+		*/
 		
 		//white's turn 
 		this.white = true; //change to true
@@ -163,15 +173,51 @@ public class ChessBoard {
 			return;
 		}
 		
-		//If the current player check, then check to see if the moves will uncheck current player.
-		if((this.wcheck && this.white) || (this.bcheck && !this.white)){
-			
-			//checks to see if king is attempting to castle when in check
-			if((this.board[rstart][fstart].toString().charAt(1) == 'K') && (this.board[rstart][fstart].getMoves() == 0) && (Math.abs(fstart-fend) == 2)){
+		//checks to see if king is attempting to castle in,through, or out of check
+		if((this.board[rstart][fstart].toString().charAt(1) == 'K') && (this.board[rstart][fstart].getMoves() == 0) && (Math.abs(fstart-fend) == 2)){
+	
+			//this checks if king is trying to castle when in check
+			if((this.wcheck && this.white) || (this.bcheck && !this.white)){
 				System.out.println("Illegal move, try again");
 				return;
+			}else{
+				//this checks if king is trying to castle into check
+				if(!outOfCheck(fstart, rstart, fend, rend)){
+					System.out.println("Illegal move, try again");
+					return;
+				}
+				
+				//checks if king is trying to castle through check
+				//short castling
+				if(fstart < fend){
+					for(int i = fstart + 1; i < 7; i++){
+						if(board[rstart][i] == null){
+							if(isCheck(i, rstart, !this.white, this.board)){
+								System.out.println("Illegal move, try again");
+								return;
+							}
+						}else{
+							break;
+						}
+					}
+				//long castling
+				}else{
+					for(int i = fstart - 1; i > 0; i--){
+						if(board[rstart][i] == null){
+							if(isCheck(i, rstart, !this.white, this.board)){
+								System.out.println("Illegal move, try again");
+								return;
+							}
+						}else{
+							break;
+						}
+					}
+				}
 			}
-			
+		}
+		
+		//If the current player check, then check to see if the moves will uncheck current player.
+		if((this.wcheck && this.white) || (this.bcheck && !this.white)){
 			
 			if(!outOfCheck(fstart, rstart, fend, rend)){
 				System.out.println("Illegal move: king is in check");
@@ -275,17 +321,6 @@ public class ChessBoard {
 		if(isCheck(file, rank, !this.white, test)){
 			return false;
 		}
-		/*
-		if(this.white){
-			if(isCheck(file, rank, false, test)){
-				return false;
-			}
-		}else{
-			if(isCheck(file, rank, true, test)){
-				return false;
-			}
-		}
-		*/
 		return true;
 	}
 	
