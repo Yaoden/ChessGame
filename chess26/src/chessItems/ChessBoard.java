@@ -69,7 +69,10 @@ public class ChessBoard {
 		
 		
 		//testing purposes/////////////////////////
-		
+		board[0][3] = new Queen(false);
+		board[7][3] = new Queen(true);
+		board[0][4] = new King(false);
+		board[7][4] = new King(true);
 		///////////////////////////////////////////
 		
 		//white's turn 
@@ -165,14 +168,14 @@ public class ChessBoard {
 			return;
 		}
 		
-		//checks to see if player is in check and the piece selected is a king
-		if((this.white && (board[rstart][fstart].toString().compareToIgnoreCase("wk") != 0) && this.wcheck) || (!this.white && (board[rstart][fstart].toString().compareToIgnoreCase("bk") != 0) && this.bcheck)){
-			System.out.println("Illegal move: king is in check");
-			return;
+		if(this.wcheck || this.bcheck){
+			if(!outOfCheck(fstart, rstart, fend, rend)){
+				System.out.println("Illegal move: king is in check");
+				return;
+			}
 		}
 		
-		
-		
+		//handles the third argument: draw or promotion
 		if(array.length == 3){
 			other = array[2];
 			if(other.compareToIgnoreCase("draw") == 0){
@@ -195,6 +198,8 @@ public class ChessBoard {
 				return;
 			}
 		}
+		
+		
 		//handles legal move
 		if(board[rstart][fstart].isLegal(fstart, rstart, fend, rend, this.board)){
 			//handles promotion
@@ -217,16 +222,59 @@ public class ChessBoard {
 					bking[1] = fend;
 				}
 			}
+			
+			//checks if opponent is in check
 			if(this.white){
-				this.bcheck = isCheck(bking[1], bking[0]);
+				this.bcheck = isCheck(bking[1], bking[0], true, this.board);
 			}else{
-				this.wcheck = isCheck(wking[1], wking[0]);
+				this.wcheck = isCheck(wking[1], wking[0], false, this.board);
 			}
+			
 			this.white = !this.white;
 		}else{
 			System.out.println("Illegal move, try again");
 		}
 	}
+	
+	private boolean outOfCheck(int fstart, int rstart, int fend, int rend) throws ArrayIndexOutOfBoundsException, NullPointerException{
+		
+		ChessPiece test[][] = new ChessPiece[8][8];
+		int file = 0, rank = 0;
+		
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				test[i][j] = this.board[i][j];
+			}
+		}
+		if(test[rstart][fstart].toString().charAt(1) == 'K'){
+			file = fend;
+			rank = rend;
+		}else{
+			if(this.white){
+				file = wking[1];
+				rank = wking[0];
+			}else{
+				file = bking[1];
+				rank = bking[0];				
+			}
+		}
+		
+		if(!test[rstart][fstart].isLegal(fstart, rstart, fend, rend, test)){
+			return false;
+		}
+		
+		if(this.white){
+			if(isCheck(file, rank, false, test)){
+				return false;
+			}
+		}else{
+			if(isCheck(file, rank, true, test)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public String toString(){
 		
 		StringBuilder mes = new StringBuilder();
@@ -257,22 +305,20 @@ public class ChessBoard {
 		mes.append(" a  b  c  d  e  f  g  h\n");
 		return mes.toString();
 	}
-	private boolean isCheck(int fend, int rend){
+	private boolean isCheck(int fend, int rend, boolean w, ChessPiece test[][]){
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
-				if(board[i][j] !=null){
-					
-					//checks for white pieces on white's turn
-					if(board[i][j].isWhite() && this.white){
-						if(board[i][j].isCheck(j, i, fend, rend, this.board)){
+				if(test[i][j] !=null){
+					if(test[i][j].isWhite() == w){
+						if(test[i][j].isCheck(j, i, fend, rend, test)){
 							return true;
 						}
 					//checks for black pieces on black's turn
-					}else if(!board[i][j].isWhite() && !this.white){
+					}/*else if(!board[i][j].isWhite() && !this.white){
 						if(board[i][j].isCheck(j, i, fend, rend, this.board)){
 							return true;
 						}
-					}
+					}*/
 				}
 			}
 		}
