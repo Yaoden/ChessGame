@@ -188,10 +188,8 @@ public class ChessBoard {
 				System.out.println("IOException: Looks like you fucked up the BufferedReader somehow. Good job.");
 			} catch (ArrayIndexOutOfBoundsException r){
 				System.out.println("Illegal move, try again EXCEPTION");
-				r.printStackTrace();
 			} catch (NullPointerException n){
 				System.out.println("Illegal move: no chess piece at " + array[0]);
-				n.printStackTrace();
 			}
 		}
 	}
