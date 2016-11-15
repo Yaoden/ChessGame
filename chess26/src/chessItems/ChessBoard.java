@@ -504,7 +504,7 @@ public class ChessBoard {
 			for(int i = -1; i <= 1 ; i++){
 				for(int j = -1; j <= 1; j++){
 					if((file + j >= 0 && file + j < 8) && (rank + i >= 0 && rank + i < 8)){
-						if(this.board[rank+i][file+j] == null){
+						if(this.board[rank+i][file+j] == null || (this.board[rank+i][file+j] != null && (this.board[rank+i][file+j].isWhite() != this.board[rank][file].isWhite()))){
 							if(this.white){
 								if(!isCheck(file+j, rank+i, !this.white, this.board)){
 									return false;
