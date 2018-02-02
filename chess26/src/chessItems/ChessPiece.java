@@ -1,7 +1,7 @@
 package chessItems;
 /**
  * @author Matthew Ya
- * @author Taehee Lee
+ * 
  */
 public abstract class ChessPiece {
 	

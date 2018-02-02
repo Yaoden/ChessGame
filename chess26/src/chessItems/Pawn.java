@@ -5,7 +5,7 @@ package chessItems;
 
 /**
  * @author Matthew Ya
- * @author Taehee Lee
+ * 
  */
 public class Pawn extends ChessPiece {
 

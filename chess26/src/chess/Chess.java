@@ -4,7 +4,7 @@ import chessItems.*;
 
 /**
  * @author Matthew Ya
- * @author Taehee Lee
+ *
  */
 public class Chess {
 

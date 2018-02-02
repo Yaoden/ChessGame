@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 /**
  * @author Matthew Ya
- * @author Taehee Lee
+ * 
  */
 public class ChessBoard {
 	private ChessPiece board[][];

@@ -5,7 +5,7 @@ package chessItems;
 
 /**
  * @author Matthew Ya
- * @author Taehee Lee
+ * 
  */
 public class Knight extends ChessPiece {
 
