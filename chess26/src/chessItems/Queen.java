@@ -7,13 +7,8 @@ package chessItems;
  * @author Matthew Ya
  * @author Taehee Lee
  */
-public class Queen implements ChessPiece {
+public class Queen extends ChessPiece {
 
-	/**
-	 * 
-	 */
-	private boolean white;
-	private int moves;
 	
 	public Queen(boolean white) {
 		// TODO Auto-generated constructor stub
@@ -107,14 +102,6 @@ public class Queen implements ChessPiece {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isWhite()
-	 */
-	@Override
-	public boolean isWhite() {
-		// TODO Auto-generated method stub
-		return this.white;
-	}
 	
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#toString()
@@ -126,13 +113,6 @@ public class Queen implements ChessPiece {
 			return "wQ";
 		}
 		return "bQ";
-	}
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#getMoves()
-	 */
-	@Override
-	public int getMoves(){
-		return this.moves;
 	}
 	
 	/* (non-Javadoc)

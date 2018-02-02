@@ -3,7 +3,10 @@ package chessItems;
  * @author Matthew Ya
  * @author Taehee Lee
  */
-public interface ChessPiece {
+public abstract class ChessPiece {
+	
+	protected boolean white;
+	protected int moves;
 	
 	/**
 	 * Checks to see if move is legal and then moves the piece.
@@ -21,14 +24,16 @@ public interface ChessPiece {
 	 * @param board  the board where the piece resides on
 	 * @return 		 true if the move is valid otherwise false
 	 */
-	public boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
+	public abstract boolean isLegal(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
 	
 	/**
 	 * Gets the color of the piece (white or black)
 	 * 
 	 * @return true if piece is white, false if piece is black.
 	 */
-	public boolean isWhite();
+	public boolean isWhite() {
+		return this.white;
+	}
 	
 	/**
 	 * Creates a string representation of the piece.
@@ -38,14 +43,16 @@ public interface ChessPiece {
 	 * <p>
 	 * @return a string containing the initials of the piece.
 	 */
-	public String toString();
+	public abstract String toString();
 	
 	/**
 	 * Obtains the number of moves this piece has made.
 	 * 
 	 * @return the number of moves this piece has made.
 	 */
-	public int getMoves();
+	public int getMoves() {
+		return this.moves;
+	}
 	
 	/**
 	 * Checks to see if the selected piece can take opponent's king.
@@ -61,5 +68,5 @@ public interface ChessPiece {
 	 * @param board  the board where the pieces reside on
 	 * @return 		 true if king is check, false if not.
 	 */
-	public boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
+	public abstract boolean isCheck(int fstart, int rstart, int fend, int rend, ChessPiece board[][]);
 }

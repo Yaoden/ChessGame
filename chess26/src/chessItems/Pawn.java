@@ -7,14 +7,12 @@ package chessItems;
  * @author Matthew Ya
  * @author Taehee Lee
  */
-public class Pawn implements ChessPiece {
+public class Pawn extends ChessPiece {
 
 	/**
 	 * 
 	 */
-	private boolean white;
 	private boolean enpassant;
-	private int moves;
 	
 	public Pawn(boolean white) {
 		// TODO Auto-generated constructor stub
@@ -88,14 +86,6 @@ public class Pawn implements ChessPiece {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isWhite()
-	 */
-	@Override
-	public boolean isWhite() {
-		// TODO Auto-generated method stub
-		return this.white;
-	}
 	
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#toString()
@@ -109,13 +99,6 @@ public class Pawn implements ChessPiece {
 		return "bp";
 	}
 	
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#getMoves()
-	 */
-	@Override
-	public int getMoves(){
-		return this.moves;
-	}
 	
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#isCheck(int, int, int, int, ChessPiece)

@@ -7,13 +7,8 @@ package chessItems;
  * @author Matthew Ya
  * @author Taehee Lee
  */
-public class Bishop implements ChessPiece {
+public class Bishop extends ChessPiece {
 
-	/**
-	 * 
-	 */
-	private boolean white;
-	private int moves;
 	public Bishop(boolean white) {
 		// TODO Auto-generated constructor stub
 		this.white = white;
@@ -75,15 +70,6 @@ public class Bishop implements ChessPiece {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#isWhite()
-	 */
-	@Override
-	public boolean isWhite() {
-		// TODO Auto-generated method stub
-		return this.white;
-	}
-	
 
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#toString()
@@ -97,13 +83,6 @@ public class Bishop implements ChessPiece {
 		return "bB";
 	}
 	
-	/* (non-Javadoc)
-	 * @see chessItems.ChessPiece#getMoves()
-	 */
-	@Override
-	public int getMoves(){
-		return this.moves;
-	}
 	
 	/* (non-Javadoc)
 	 * @see chessItems.ChessPiece#isCheck(int, int, int, int, ChessPiece)
